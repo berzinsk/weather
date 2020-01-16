@@ -108,8 +108,8 @@ Then the app should display an error message
 
 | Property         | Type     |
 |------------------|----------|
-| `temperature`    | `String` |
-| `feelsLike`      | `String` |
+| `temperature`    | `Double` |
+| `feelsLike`      | `Double` |
 | `minTemperature` | `Double` |
 | `maxTemperature` | `Double` |
 | `humidity`       | `Int`    |
