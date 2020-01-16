@@ -100,7 +100,7 @@ Then the app should display an error message
 | `status`      | `String`      |
 | `description` | `String`      |
 | `icon`        | `String`      |
-| `windSpeed`   | `String`      |
+| `windSpeed`   | `Double`      |
 | `temperature` | `Temperature` |
 
 
