@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		12CB2A4723D01EFD00CB03EB /* EssentialWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */; };
+		12CB2A5823D01F5C00CB03EB /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */; };
+		12CB2A5A23D0200100CB03EB /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5923D0200100CB03EB /* Weather.swift */; };
+		12CB2A5C23D024FD00CB03EB /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5B23D024FD00CB03EB /* Temperature.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,6 +28,9 @@
 		12CB2A4123D01EFD00CB03EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12CB2A4623D01EFD00CB03EB /* EssentialWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		12CB2A4D23D01EFD00CB03EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
+		12CB2A5923D0200100CB03EB /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
+		12CB2A5B23D024FD00CB03EB /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -68,6 +74,9 @@
 			isa = PBXGroup;
 			children = (
 				12CB2A4123D01EFD00CB03EB /* Info.plist */,
+				12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */,
+				12CB2A5923D0200100CB03EB /* Weather.swift */,
+				12CB2A5B23D024FD00CB03EB /* Temperature.swift */,
 			);
 			path = EssentialWeather;
 			sourceTree = "<group>";
@@ -141,6 +150,7 @@
 				TargetAttributes = {
 					12CB2A3C23D01EFD00CB03EB = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 					12CB2A4523D01EFD00CB03EB = {
 						CreatedOnToolsVersion = 11.3.1;
@@ -188,6 +198,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12CB2A5A23D0200100CB03EB /* Weather.swift in Sources */,
+				12CB2A5823D01F5C00CB03EB /* CurrentWeather.swift in Sources */,
+				12CB2A5C23D024FD00CB03EB /* Temperature.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -331,6 +344,7 @@
 		12CB2A5223D01EFD00CB03EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -348,6 +362,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = me.karlisberzins.EssentialWeather;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -355,6 +370,7 @@
 		12CB2A5323D01EFD00CB03EB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEFINES_MODULE = YES;
@@ -379,6 +395,7 @@
 		12CB2A5523D01EFD00CB03EB /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = DX3TWD8RW8;
@@ -397,6 +414,7 @@
 		12CB2A5623D01EFD00CB03EB /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = DX3TWD8RW8;
