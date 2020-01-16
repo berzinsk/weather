@@ -76,10 +76,7 @@
 			isa = PBXGroup;
 			children = (
 				12CB2A4123D01EFD00CB03EB /* Info.plist */,
-				12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */,
-				12CB2A5923D0200100CB03EB /* Weather.swift */,
-				12CB2A5B23D024FD00CB03EB /* Temperature.swift */,
-				12CB2A5D23D025D700CB03EB /* CurrentWeatherLoader.swift */,
+				12CB2A6123D026B800CB03EB /* CurrentWeatherFeature */,
 			);
 			path = EssentialWeather;
 			sourceTree = "<group>";
@@ -90,6 +87,17 @@
 				12CB2A4D23D01EFD00CB03EB /* Info.plist */,
 			);
 			path = EssentialWeatherTests;
+			sourceTree = "<group>";
+		};
+		12CB2A6123D026B800CB03EB /* CurrentWeatherFeature */ = {
+			isa = PBXGroup;
+			children = (
+				12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */,
+				12CB2A5923D0200100CB03EB /* Weather.swift */,
+				12CB2A5B23D024FD00CB03EB /* Temperature.swift */,
+				12CB2A5D23D025D700CB03EB /* CurrentWeatherLoader.swift */,
+			);
+			path = CurrentWeatherFeature;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
