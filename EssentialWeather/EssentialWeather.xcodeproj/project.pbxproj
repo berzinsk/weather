@@ -11,6 +11,7 @@
 		12CB2A5823D01F5C00CB03EB /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */; };
 		12CB2A5A23D0200100CB03EB /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5923D0200100CB03EB /* Weather.swift */; };
 		12CB2A5C23D024FD00CB03EB /* Temperature.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5B23D024FD00CB03EB /* Temperature.swift */; };
+		12CB2A5E23D025D700CB03EB /* CurrentWeatherLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5D23D025D700CB03EB /* CurrentWeatherLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -31,6 +32,7 @@
 		12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeather.swift; sourceTree = "<group>"; };
 		12CB2A5923D0200100CB03EB /* Weather.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Weather.swift; sourceTree = "<group>"; };
 		12CB2A5B23D024FD00CB03EB /* Temperature.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Temperature.swift; sourceTree = "<group>"; };
+		12CB2A5D23D025D700CB03EB /* CurrentWeatherLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentWeatherLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 				12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */,
 				12CB2A5923D0200100CB03EB /* Weather.swift */,
 				12CB2A5B23D024FD00CB03EB /* Temperature.swift */,
+				12CB2A5D23D025D700CB03EB /* CurrentWeatherLoader.swift */,
 			);
 			path = EssentialWeather;
 			sourceTree = "<group>";
@@ -201,6 +204,7 @@
 				12CB2A5A23D0200100CB03EB /* Weather.swift in Sources */,
 				12CB2A5823D01F5C00CB03EB /* CurrentWeather.swift in Sources */,
 				12CB2A5C23D024FD00CB03EB /* Temperature.swift in Sources */,
+				12CB2A5E23D025D700CB03EB /* CurrentWeatherLoader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
