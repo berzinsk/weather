@@ -8,8 +8,6 @@
 
 /* Begin PBXBuildFile section */
 		12CB2A4723D01EFD00CB03EB /* EssentialWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */; };
-		12CB2A4C23D01EFD00CB03EB /* EssentialWeatherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A4B23D01EFD00CB03EB /* EssentialWeatherTests.swift */; };
-		12CB2A4E23D01EFD00CB03EB /* EssentialWeather.h in Headers */ = {isa = PBXBuildFile; fileRef = 12CB2A4023D01EFD00CB03EB /* EssentialWeather.h */; settings = {ATTRIBUTES = (Public, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -24,10 +22,8 @@
 
 /* Begin PBXFileReference section */
 		12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		12CB2A4023D01EFD00CB03EB /* EssentialWeather.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EssentialWeather.h; sourceTree = "<group>"; };
 		12CB2A4123D01EFD00CB03EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12CB2A4623D01EFD00CB03EB /* EssentialWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		12CB2A4B23D01EFD00CB03EB /* EssentialWeatherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EssentialWeatherTests.swift; sourceTree = "<group>"; };
 		12CB2A4D23D01EFD00CB03EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -71,7 +67,6 @@
 		12CB2A3F23D01EFD00CB03EB /* EssentialWeather */ = {
 			isa = PBXGroup;
 			children = (
-				12CB2A4023D01EFD00CB03EB /* EssentialWeather.h */,
 				12CB2A4123D01EFD00CB03EB /* Info.plist */,
 			);
 			path = EssentialWeather;
@@ -80,7 +75,6 @@
 		12CB2A4A23D01EFD00CB03EB /* EssentialWeatherTests */ = {
 			isa = PBXGroup;
 			children = (
-				12CB2A4B23D01EFD00CB03EB /* EssentialWeatherTests.swift */,
 				12CB2A4D23D01EFD00CB03EB /* Info.plist */,
 			);
 			path = EssentialWeatherTests;
@@ -93,7 +87,6 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12CB2A4E23D01EFD00CB03EB /* EssentialWeather.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -202,7 +195,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				12CB2A4C23D01EFD00CB03EB /* EssentialWeatherTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
