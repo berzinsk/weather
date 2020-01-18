@@ -8,7 +8,7 @@
 
 import Foundation
 
-typealias LoadCurrentWeatherResult = Swift.Result<Weather, Error>
+typealias LoadCurrentWeatherResult = Swift.Result<CurrentWeather, Error>
 
 protocol CurrentWeatherLoader {
     func load(completion: @escaping (LoadCurrentWeatherResult) -> Void)
