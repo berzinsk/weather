@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12B2530523D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B2530423D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift */; };
 		12CB2A4723D01EFD00CB03EB /* EssentialWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */; };
 		12CB2A5823D01F5C00CB03EB /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */; };
 		12CB2A5A23D0200100CB03EB /* Weather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5923D0200100CB03EB /* Weather.swift */; };
@@ -25,6 +26,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		12B2530423D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCurrentWeatherLoaderTests.swift; sourceTree = "<group>"; };
 		12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12CB2A4123D01EFD00CB03EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		12CB2A4623D01EFD00CB03EB /* EssentialWeatherTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EssentialWeatherTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -85,6 +87,7 @@
 			isa = PBXGroup;
 			children = (
 				12CB2A4D23D01EFD00CB03EB /* Info.plist */,
+				12B2530423D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift */,
 			);
 			path = EssentialWeatherTests;
 			sourceTree = "<group>";
@@ -165,6 +168,7 @@
 					};
 					12CB2A4523D01EFD00CB03EB = {
 						CreatedOnToolsVersion = 11.3.1;
+						LastSwiftMigration = 1130;
 					};
 				};
 			};
@@ -220,6 +224,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				12B2530523D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -408,6 +413,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = DX3TWD8RW8;
@@ -419,6 +425,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = me.karlisberzins.EssentialWeatherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 			};
 			name = Debug;
@@ -427,6 +434,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = DX3TWD8RW8;
