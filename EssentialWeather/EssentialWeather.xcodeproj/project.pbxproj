@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		123F826F23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123F826E23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift */; };
 		12B2530523D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B2530423D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift */; };
 		12CB2A4723D01EFD00CB03EB /* EssentialWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */; };
 		12CB2A5823D01F5C00CB03EB /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */; };
@@ -26,6 +27,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		123F826E23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCurrentWeatherLoader.swift; sourceTree = "<group>"; };
 		12B2530423D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCurrentWeatherLoaderTests.swift; sourceTree = "<group>"; };
 		12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12CB2A4123D01EFD00CB03EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -56,6 +58,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		123F826D23D80C9A009249E3 /* CurrentWeatherApi */ = {
+			isa = PBXGroup;
+			children = (
+				123F826E23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift */,
+			);
+			path = CurrentWeatherApi;
+			sourceTree = "<group>";
+		};
 		12CB2A3323D01EFD00CB03EB = {
 			isa = PBXGroup;
 			children = (
@@ -77,6 +87,7 @@
 		12CB2A3F23D01EFD00CB03EB /* EssentialWeather */ = {
 			isa = PBXGroup;
 			children = (
+				123F826D23D80C9A009249E3 /* CurrentWeatherApi */,
 				12CB2A4123D01EFD00CB03EB /* Info.plist */,
 				12CB2A6123D026B800CB03EB /* CurrentWeatherFeature */,
 			);
@@ -215,6 +226,7 @@
 			files = (
 				12CB2A5A23D0200100CB03EB /* Weather.swift in Sources */,
 				12CB2A5823D01F5C00CB03EB /* CurrentWeather.swift in Sources */,
+				123F826F23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift in Sources */,
 				12CB2A5C23D024FD00CB03EB /* Temperature.swift in Sources */,
 				12CB2A5E23D025D700CB03EB /* CurrentWeatherLoader.swift in Sources */,
 			);
