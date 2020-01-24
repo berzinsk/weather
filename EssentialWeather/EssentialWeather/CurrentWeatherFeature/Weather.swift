@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Weather {
+public struct Weather: Equatable {
     let id: String
     let status: String
     let description: String

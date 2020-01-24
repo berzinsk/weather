@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct CurrentWeather {
+public struct CurrentWeather: Equatable {
     let id: String
     let weather: Weather
 }

@@ -74,12 +74,12 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
     }
 
     private func expect(_ sut: RemoteCurrentWeatherLoader, toCompleteWithError error: RemoteCurrentWeatherLoader.Error, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
-        var capturedErrors: [RemoteCurrentWeatherLoader.Error] = []
-        sut.load { capturedErrors.append($0) }
+        var capturedResults: [RemoteCurrentWeatherLoader.Result] = []
+        sut.load { capturedResults.append($0) }
 
         action()
 
-        XCTAssertEqual(capturedErrors, [error], file: file, line: line)
+        XCTAssertEqual(capturedResults, [.failure(error)], file: file, line: line)
     }
 
     private class HTTPClientSpy: HTTPClient {

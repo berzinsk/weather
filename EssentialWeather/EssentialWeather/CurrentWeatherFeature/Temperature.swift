@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct Temperature {
+public struct Temperature: Equatable {
     let temperature: String
     let feelsLike: String
     let minTemperature: Double
