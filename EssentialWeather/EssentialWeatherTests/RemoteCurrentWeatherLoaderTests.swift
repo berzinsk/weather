@@ -64,6 +64,18 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
         })
     }
 
+    func test_load_deliversNoCurrentWeatherItemOn200HTTPResponseWithEmptyJSON() {
+        let (sut, client) = makeSUT()
+
+        var capturedResults: [RemoteCurrentWeatherLoader.Result] = []
+        sut.load { capturedResults.append($0) }
+
+        let emptyJSON = Data("{}".utf8)
+        client.complete(withStatusCode: 200, data: emptyJSON)
+
+        XCTAssertEqual(capturedResults, [.failure(.missingData)])
+    }
+
     // MARK:- Helpers
 
     private func makeSUT(url: URL = URL(string: "http://a-url.com")!) -> (sut: RemoteCurrentWeatherLoader, client: HTTPClientSpy) {
