@@ -9,10 +9,15 @@
 import Foundation
 
 public struct Weather: Equatable {
-    let id: String
-    let status: String
-    let description: String
-    let icon: String
-    let windSpeed: Double
-    let temperature: Temperature
+    public let id: Int
+    public let status: String
+    public let description: String
+    public let icon: String
+
+    public init(id: Int, status: String, description: String, icon: String) {
+        self.id = id
+        self.status = status
+        self.description = description
+        self.icon = icon
+    }
 }

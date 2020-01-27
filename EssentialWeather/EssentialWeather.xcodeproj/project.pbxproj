@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		123F826F23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 123F826E23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift */; };
+		1288C3B123DEBDB2000D9B67 /* Wind.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1288C3B023DEBDB2000D9B67 /* Wind.swift */; };
 		12B2530523D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12B2530423D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift */; };
 		12CB2A4723D01EFD00CB03EB /* EssentialWeather.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */; };
 		12CB2A5823D01F5C00CB03EB /* CurrentWeather.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */; };
@@ -28,6 +29,7 @@
 
 /* Begin PBXFileReference section */
 		123F826E23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCurrentWeatherLoader.swift; sourceTree = "<group>"; };
+		1288C3B023DEBDB2000D9B67 /* Wind.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = Wind.swift; path = EssentialWeather/CurrentWeatherFeature/Wind.swift; sourceTree = SOURCE_ROOT; };
 		12B2530423D2C85400F1A8C0 /* RemoteCurrentWeatherLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteCurrentWeatherLoaderTests.swift; sourceTree = "<group>"; };
 		12CB2A3D23D01EFD00CB03EB /* EssentialWeather.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = EssentialWeather.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		12CB2A4123D01EFD00CB03EB /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -108,6 +110,7 @@
 			children = (
 				12CB2A5723D01F5C00CB03EB /* CurrentWeather.swift */,
 				12CB2A5923D0200100CB03EB /* Weather.swift */,
+				1288C3B023DEBDB2000D9B67 /* Wind.swift */,
 				12CB2A5B23D024FD00CB03EB /* Temperature.swift */,
 				12CB2A5D23D025D700CB03EB /* CurrentWeatherLoader.swift */,
 			);
@@ -229,6 +232,7 @@
 				123F826F23D80CBE009249E3 /* RemoteCurrentWeatherLoader.swift in Sources */,
 				12CB2A5C23D024FD00CB03EB /* Temperature.swift in Sources */,
 				12CB2A5E23D025D700CB03EB /* CurrentWeatherLoader.swift in Sources */,
+				1288C3B123DEBDB2000D9B67 /* Wind.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
