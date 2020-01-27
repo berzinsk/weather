@@ -96,7 +96,7 @@ Then the app should display an error message
 
 | Property      | Type          |
 |---------------|---------------|
-| `id`          | `String`      |
+| `id`          | `Int`         |
 | `status`      | `String`      |
 | `description` | `String`      |
 | `icon`        | `String`      |
