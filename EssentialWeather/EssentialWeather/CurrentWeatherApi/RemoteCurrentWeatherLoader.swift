@@ -14,7 +14,8 @@ public protocol HTTPClient {
     func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void)
 }
 
-public final class RemoteCurrentWeatherLoader {
+public final class RemoteCurrentWeatherLoader
+ {
     private let url: URL
     private let client: HTTPClient
 
@@ -35,7 +36,9 @@ public final class RemoteCurrentWeatherLoader {
         client.get(from: url) { result in
             switch result {
             case let .success(data, _):
-                if let _ = try? JSONSerialization.jsonObject(with: data) {
+                if let currentWeather = try? JSONDecoder().decode(CurrentWeather.self, from: data) {
+                    completion(.success(currentWeather))
+                } else if let _ = try? JSONSerialization.jsonObject(with: data) {
                     completion(.failure(.missingData))
                 } else {
                     completion(.failure(.invalidData))

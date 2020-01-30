@@ -73,6 +73,45 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
         })
     }
 
+    func test_load_deliversCurrentWeatherItemOn200HTTPResponseWithJSONItem() {
+        let (sut, client) = makeSUT()
+
+        let weather = Weather(id: 800, status: "Clear", description: "clear sky", icon: "01n")
+        let weatherJSON: [String: Any] = [
+            "id": weather.id,
+            "main": weather.status,
+            "description": weather.description,
+            "icon": weather.icon,
+        ]
+
+        let temperature = Temperature(temperature: 10.1, feelsLike: 11.0, minTemperature: 7.2, maxTemperature: 12, humidity: 85)
+        let temperatureJSON: [String: Any] = [
+            "temp": temperature.temperature,
+            "feels_like": temperature.feelsLike,
+            "temp_min": temperature.minTemperature,
+            "temp_max": temperature.maxTemperature,
+            "humidity": temperature.humidity
+        ]
+
+        let wind = Wind(speed: 12.3)
+        let windJSON = [
+            "speed": wind.speed
+        ]
+
+        let currentWeather = CurrentWeather(weather: [weather], temperature: temperature, wind: wind)
+        let currentWeatherJSON: [String: Any] = [
+            "weather": [weatherJSON],
+            "main": temperatureJSON,
+            "wind": windJSON
+        ]
+
+
+        expect(sut, toCompleteWith: .success(currentWeather), when: {
+            let json = try! JSONSerialization.data(withJSONObject: currentWeatherJSON)
+            client.complete(withStatusCode: 200, data: json)
+        })
+    }
+
     // MARK:- Helpers
 
     private func makeSUT(url: URL = URL(string: "http://a-url.com")!) -> (sut: RemoteCurrentWeatherLoader, client: HTTPClientSpy) {

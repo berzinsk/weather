@@ -8,7 +8,7 @@
 
 import Foundation
 
-public struct Wind: Equatable {
+public struct Wind: Equatable, Decodable {
     public let speed: Double
 
     public init(speed: Double) {
