@@ -22,7 +22,6 @@ public final class RemoteCurrentWeatherLoader
     public enum Error: Swift.Error {
         case connectivity
         case invalidData
-        case missingData
     }
 
     public typealias Result = Swift.Result<CurrentWeather, Error>
@@ -35,11 +34,9 @@ public final class RemoteCurrentWeatherLoader
     public func load(completion: @escaping (Result) -> Void) {
         client.get(from: url) { result in
             switch result {
-            case let .success(data, _):
-                if let currentWeather = try? JSONDecoder().decode(CurrentWeather.self, from: data) {
+            case let .success(data, response):
+                if response.statusCode == 200, let currentWeather = try? JSONDecoder().decode(CurrentWeather.self, from: data) {
                     completion(.success(currentWeather))
-                } else if let _ = try? JSONSerialization.jsonObject(with: data) {
-                    completion(.failure(.missingData))
                 } else {
                     completion(.failure(.invalidData))
                 }

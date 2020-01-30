@@ -50,7 +50,8 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
         let samples = [199, 201, 300, 400, 500].enumerated()
         samples.forEach { index, code in
             expect(sut, toCompleteWith: .failure(.invalidData), when: {
-                client.complete(withStatusCode: code, at: index)
+                let json = makeItemJSON([:])
+                client.complete(withStatusCode: code, data: json, at: index)
             })
         }
     }
@@ -67,8 +68,8 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
     func test_load_deliversNoCurrentWeatherItemOn200HTTPResponseWithEmptyJSON() {
         let (sut, client) = makeSUT()
 
-        expect(sut, toCompleteWith: .failure(.missingData), when: {
-            let emptyJSON = Data("{}".utf8)
+        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+            let emptyJSON = makeItemJSON([:])
             client.complete(withStatusCode: 200, data: emptyJSON)
         })
     }
@@ -82,7 +83,7 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
         let currentWeather = makeCurrentWeatherItem(weather: [weather], temperature: temperature, wind: wind)
 
         expect(sut, toCompleteWith: .success(currentWeather.model), when: {
-            let json = try! JSONSerialization.data(withJSONObject: currentWeather.json)
+            let json = makeItemJSON(currentWeather.json)
             client.complete(withStatusCode: 200, data: json)
         })
     }
@@ -155,6 +156,10 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
         return (model, json)
     }
 
+    private func makeItemJSON(_ item: [String: Any]) -> Data {
+        return try! JSONSerialization.data(withJSONObject: item)
+    }
+
     private class HTTPClientSpy: HTTPClient {
         private var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
         var requestedURLs: [URL] {
@@ -169,7 +174,7 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
             messages[index].completion(.failure(error))
         }
 
-        func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
+        func complete(withStatusCode code: Int, data: Data, at index: Int = 0) {
             let response = HTTPURLResponse(
                 url: requestedURLs[index],
                 statusCode: code,
