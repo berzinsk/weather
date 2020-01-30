@@ -35,9 +35,10 @@ public final class RemoteCurrentWeatherLoader
         client.get(from: url) { result in
             switch result {
             case let .success(data, response):
-                if response.statusCode == 200, let currentWeather = try? JSONDecoder().decode(Item.self, from: data) {
-                    completion(.success(currentWeather.item))
-                } else {
+                do {
+                    let currentWeather = try CurrentWeatherItemMapper.map(data, response)
+                    completion(.success(currentWeather))
+                } catch {
                     completion(.failure(.invalidData))
                 }
             case .failure:
@@ -47,44 +48,54 @@ public final class RemoteCurrentWeatherLoader
     }
 }
 
-private struct Item: Decodable {
-    let weather: [WeatherItem]
-    let main: TemperatureItem
-    let wind: Wind
+private class CurrentWeatherItemMapper {
+    private struct Item: Decodable {
+        let weather: [WeatherItem]
+        let main: TemperatureItem
+        let wind: Wind
 
-    var item: CurrentWeather {
-        let mapperWeather = weather.map { $0.item }
-        return CurrentWeather(weather: mapperWeather, temperature: main.item, wind: wind)
-    }
-}
-
-private struct WeatherItem: Decodable {
-    let id: Int
-    let main: String
-    let description: String
-    let icon: String
-
-    var item: Weather {
-        return Weather(id: id, status: main, description: description, icon: icon)
-    }
-}
-
-private struct TemperatureItem: Decodable {
-    let temp: Double
-    let feelsLike: Double
-    let tempMin: Double
-    let tempMax: Double
-    let humidity: Int
-
-    var item: Temperature {
-        return Temperature(temperature: temp, feelsLike: feelsLike, minTemperature: tempMin, maxTemperature: tempMax, humidity: humidity)
+        var item: CurrentWeather {
+            let mapperWeather = weather.map { $0.item }
+            return CurrentWeather(weather: mapperWeather, temperature: main.item, wind: wind)
+        }
     }
 
-    private enum CodingKeys: String, CodingKey {
-        case temp = "temp"
-        case feelsLike = "feels_like"
-        case tempMin = "temp_min"
-        case tempMax = "temp_max"
-        case humidity
+    private struct WeatherItem: Decodable {
+        let id: Int
+        let main: String
+        let description: String
+        let icon: String
+
+        var item: Weather {
+            return Weather(id: id, status: main, description: description, icon: icon)
+        }
+    }
+
+    private struct TemperatureItem: Decodable {
+        let temp: Double
+        let feelsLike: Double
+        let tempMin: Double
+        let tempMax: Double
+        let humidity: Int
+
+        var item: Temperature {
+            return Temperature(temperature: temp, feelsLike: feelsLike, minTemperature: tempMin, maxTemperature: tempMax, humidity: humidity)
+        }
+
+        private enum CodingKeys: String, CodingKey {
+            case temp = "temp"
+            case feelsLike = "feels_like"
+            case tempMin = "temp_min"
+            case tempMax = "temp_max"
+            case humidity
+        }
+    }
+
+    static func map(_ data: Data, _ response: HTTPURLResponse) throws -> CurrentWeather {
+        guard response.statusCode == 200 else {
+            throw RemoteCurrentWeatherLoader.Error.invalidData
+        }
+
+        return try JSONDecoder().decode(Item.self, from: data).item
     }
 }
