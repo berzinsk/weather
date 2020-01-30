@@ -21,12 +21,3 @@ public struct Weather: Equatable {
         self.icon = icon
     }
 }
-
-extension Weather: Decodable {
-    private enum CodingKeys: String, CodingKey {
-        case id
-        case status = "main"
-        case description
-        case icon
-    }
-}

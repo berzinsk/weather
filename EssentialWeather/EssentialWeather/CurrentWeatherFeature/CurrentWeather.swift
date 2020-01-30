@@ -19,11 +19,3 @@ public struct CurrentWeather: Equatable {
         self.wind = wind
     }
 }
-
-extension CurrentWeather: Decodable {
-    private enum CodingKeys: String, CodingKey {
-        case weather
-        case temperature = "main"
-        case wind
-    }
-}

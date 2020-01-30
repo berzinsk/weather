@@ -23,13 +23,3 @@ public struct Temperature: Equatable {
         self.humidity = humidity
     }
 }
-
-extension Temperature: Decodable {
-    private enum CodingKeys: String, CodingKey {
-        case temperature = "temp"
-        case feelsLike = "feels_like"
-        case minTemperature = "temp_min"
-        case maxTemperature = "temp_max"
-        case humidity
-    }
-}
