@@ -76,38 +76,13 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
     func test_load_deliversCurrentWeatherItemOn200HTTPResponseWithJSONItem() {
         let (sut, client) = makeSUT()
 
-        let weather = Weather(id: 800, status: "Clear", description: "clear sky", icon: "01n")
-        let weatherJSON: [String: Any] = [
-            "id": weather.id,
-            "main": weather.status,
-            "description": weather.description,
-            "icon": weather.icon,
-        ]
+        let weather = makeWeatherItem(id: 800, status: "Clear", description: "clear sky", icon: "01n")
+        let temperature = makeTemperatureItem(temperature: 10.1, feelsLike: 11.0, minTemp: 7.2, maxTemp: 12, humidity: 85)
+        let wind = makeWindItem(speed: 12.3)
+        let currentWeather = makeCurrentWeatherItem(weather: [weather], temperature: temperature, wind: wind)
 
-        let temperature = Temperature(temperature: 10.1, feelsLike: 11.0, minTemperature: 7.2, maxTemperature: 12, humidity: 85)
-        let temperatureJSON: [String: Any] = [
-            "temp": temperature.temperature,
-            "feels_like": temperature.feelsLike,
-            "temp_min": temperature.minTemperature,
-            "temp_max": temperature.maxTemperature,
-            "humidity": temperature.humidity
-        ]
-
-        let wind = Wind(speed: 12.3)
-        let windJSON = [
-            "speed": wind.speed
-        ]
-
-        let currentWeather = CurrentWeather(weather: [weather], temperature: temperature, wind: wind)
-        let currentWeatherJSON: [String: Any] = [
-            "weather": [weatherJSON],
-            "main": temperatureJSON,
-            "wind": windJSON
-        ]
-
-
-        expect(sut, toCompleteWith: .success(currentWeather), when: {
-            let json = try! JSONSerialization.data(withJSONObject: currentWeatherJSON)
+        expect(sut, toCompleteWith: .success(currentWeather.model), when: {
+            let json = try! JSONSerialization.data(withJSONObject: currentWeather.json)
             client.complete(withStatusCode: 200, data: json)
         })
     }
@@ -128,6 +103,56 @@ class RemoteCurrentWeatherLoaderTests: XCTestCase {
         action()
 
         XCTAssertEqual(capturedResults, [result], file: file, line: line)
+    }
+
+    private func makeCurrentWeatherItem(
+        weather: [(model: Weather, json: [String: Any])],
+        temperature: (model: Temperature, json: [String: Any]),
+        wind: (model: Wind, json: [String: Any])
+    ) -> (model: CurrentWeather, json: [String: Any]) {
+        let weatherModelArray = weather.map { $0.model }
+        let weatherJSONArray = weather.map { $0.json }
+
+        let model = CurrentWeather(weather: weatherModelArray, temperature: temperature.model, wind: wind.model)
+        let json: [String: Any] = [
+            "weather": weatherJSONArray,
+            "main": temperature.json,
+            "wind": wind.json,
+        ]
+
+        return (model, json)
+    }
+
+    private func makeWeatherItem(id: Int, status: String, description: String, icon: String) -> (model: Weather, json: [String: Any]) {
+        let model = Weather(id: id, status: status, description: description, icon: icon)
+        let json: [String: Any] = [
+            "id": model.id,
+            "main": model.status,
+            "description": model.description,
+            "icon": model.icon,
+        ]
+
+        return (model, json)
+    }
+
+    private func makeTemperatureItem(temperature: Double, feelsLike: Double, minTemp: Double, maxTemp: Double, humidity: Int) -> (model: Temperature, json: [String: Any]) {
+        let model = Temperature(temperature: temperature, feelsLike: feelsLike, minTemperature: minTemp, maxTemperature: maxTemp, humidity: humidity)
+        let json: [String: Any] = [
+            "temp": model.temperature,
+            "feels_like": model.feelsLike,
+            "temp_min": model.minTemperature,
+            "temp_max": model.maxTemperature,
+            "humidity": model.humidity
+        ]
+
+        return (model, json)
+    }
+
+    private func makeWindItem(speed: Double) -> (model: Wind, json: [String: Any]) {
+        let model = Wind(speed: speed)
+        let json = ["speed": model.speed]
+
+        return (model, json)
     }
 
     private class HTTPClientSpy: HTTPClient {
