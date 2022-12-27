@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_details.dart';
+import 'package:weather/resources/theme/theme_data.dart';
 
 void main() {
   runApp(const MyApp());
@@ -12,11 +13,17 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Flutter Demo',
+      title: 'Weather',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        highlightColor: Colors.transparent,
+        splashColor: Colors.transparent,
+        textTheme: theme,
       ),
-      home: const Scaffold(body: WeatherDetails()),
+      home: Scaffold(
+        body: SafeArea(
+          child: WeatherDetails(),
+        ),
+      ),
     );
   }
 }
