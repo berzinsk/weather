@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather/features/weather/domain/weather.dart';
 import 'package:weather/features/weather/presentation/weather_details/current_time_row/current_time_row.dart';
+import 'package:weather/features/weather/presentation/weather_details/sunrise_sunset/sunrise_sunset_row.dart';
 
 class WeatherCard extends StatelessWidget {
   final WeatherData weatherData;
@@ -54,6 +55,10 @@ class WeatherCard extends StatelessWidget {
           ],
         ),
         const CurrentTimeRow(),
+        const SizedBox(height: 12),
+        SunriseSunsetRow(
+          systemData: weatherData.systemData,
+        ),
       ],
     );
   }

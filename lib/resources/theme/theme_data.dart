@@ -23,4 +23,9 @@ TextTheme theme = TextTheme(
     fontWeight: FontWeight.w500,
     color: AppColors.labelDetailsGray,
   ),
+  bodySmall: GoogleFonts.poppins(
+    fontSize: 10,
+    fontWeight: FontWeight.normal,
+    color: AppColors.labelDetailsGray,
+  ),
 );

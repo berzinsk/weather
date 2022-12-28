@@ -6,6 +6,7 @@ class WeatherDetails extends StatelessWidget {
   final WeatherData weatherData = WeatherData(
     id: 123,
     name: 'Dreiliņi',
+    timezone: 7200,
     coord: Coord(
       lat: 56.9465,
       lon: 24.2475,
@@ -22,6 +23,12 @@ class WeatherDetails extends StatelessWidget {
       tempMin: 2.14,
       tempMax: 3.01,
       humidity: 89,
+    ),
+    systemData: SystemData(
+      id: 2075320,
+      country: 'LV',
+      sunrise: 1672210876,
+      sunset: 1672235242,
     ),
   );
 
