@@ -20,6 +20,7 @@ class MyApp extends StatelessWidget {
         textTheme: theme,
       ),
       home: Scaffold(
+        backgroundColor: Colors.white,
         body: SafeArea(
           child: WeatherDetails(),
         ),
