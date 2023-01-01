@@ -23,7 +23,9 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: WeatherDetails(weatherService: WeatherService()),
+          child: WeatherDetails(
+            weatherService: WeatherService(),
+          ),
         ),
       ),
     );

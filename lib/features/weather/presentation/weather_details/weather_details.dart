@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/features/weather/domain/uv_data.dart';
 import 'package:weather/features/weather/domain/weather.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
 import 'package:weather/features/weather/services/weather_service.dart';
@@ -16,13 +17,19 @@ class WeatherDetails extends StatefulWidget {
 }
 
 class _WeatherDetailsState extends State<WeatherDetails> {
-  late Future<WeatherData> data;
+  late Future<WeatherData> weatherData;
+  late Future<UVData> uvData;
 
   @override
   void initState() {
     super.initState();
 
-    data = widget.weatherService.fetchWeatherData();
+    _fetchWeatherData();
+  }
+
+  Future<void> _fetchWeatherData() async {
+    weatherData = widget.weatherService.fetchWeatherData();
+    uvData = widget.weatherService.fetchUvData();
   }
 
   @override
@@ -42,10 +49,16 @@ class _WeatherDetailsState extends State<WeatherDetails> {
               ),
             ),
             FutureBuilder(
-              future: data,
+              future: Future.wait([weatherData, uvData]),
               builder: (context, snapshot) {
                 if (snapshot.hasData) {
-                  return WeatherCard(weatherData: snapshot.data!);
+                  final weatherData = snapshot.data![0] as WeatherData;
+                  final uvData = snapshot.data![1] as UVData;
+
+                  return WeatherCard(
+                    weatherData: weatherData,
+                    uvData: uvData,
+                  );
                 }
 
                 if (snapshot.hasError) {

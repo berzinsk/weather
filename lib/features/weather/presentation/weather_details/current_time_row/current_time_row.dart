@@ -1,15 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:weather/common_widgets/info_row.dart';
+import 'package:weather/features/weather/domain/uv_data.dart';
 import 'package:weather/features/weather/domain/weather.dart';
 import 'package:weather/features/weather/presentation/weather_details/current_time_row/current_time_row_item.dart';
 
 class CurrentTimeRow extends StatelessWidget {
-  final WeatherData data;
+  final WeatherData weatherData;
+  final UVData uvData;
 
   const CurrentTimeRow({
     super.key,
-    required this.data,
+    required this.weatherData,
+    required this.uvData,
   });
 
   @override
@@ -22,17 +25,17 @@ class CurrentTimeRow extends StatelessWidget {
             title: 'Time',
             data: _showCurrentTime(),
           ),
-          const CurrentTimeRowItem(
+          CurrentTimeRowItem(
             title: 'UV',
-            data: '11:25',
+            data: '${uvData.value.toInt()}',
           ),
           CurrentTimeRowItem(
             title: '% Clouds',
-            data: '${data.clouds.all}',
+            data: '${weatherData.clouds.all}',
           ),
           CurrentTimeRowItem(
             title: 'Wind m/s',
-            data: '${data.wind.speed}',
+            data: '${weatherData.wind.speed}',
           ),
         ],
       ),
