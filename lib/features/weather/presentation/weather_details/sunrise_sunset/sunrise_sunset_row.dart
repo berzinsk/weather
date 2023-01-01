@@ -90,7 +90,7 @@ class SunriseSunsetRow extends StatelessWidget {
     final hour = minuteDifference ~/ 60;
     final minute = minuteDifference % 60;
 
-    if (hour <= 0 && minute <= 0) {
+    if (hour < 0) {
       return '00H 00M';
     }
 
