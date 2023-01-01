@@ -1,34 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
 import 'package:weather/common_widgets/info_row.dart';
+import 'package:weather/features/weather/domain/weather.dart';
 import 'package:weather/features/weather/presentation/weather_details/current_time_row/current_time_row_item.dart';
 
 class CurrentTimeRow extends StatelessWidget {
-  const CurrentTimeRow({super.key});
+  final WeatherData data;
+
+  const CurrentTimeRow({
+    super.key,
+    required this.data,
+  });
 
   @override
   Widget build(BuildContext context) {
     return InfoRow(
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: const [
+        children: [
           CurrentTimeRowItem(
             title: 'Time',
-            data: '11:25',
+            data: _showCurrentTime(),
           ),
-          CurrentTimeRowItem(
+          const CurrentTimeRowItem(
             title: 'UV',
             data: '11:25',
           ),
           CurrentTimeRowItem(
-            title: '% Rain',
-            data: '11:25',
+            title: '% Clouds',
+            data: '${data.clouds.all}',
           ),
           CurrentTimeRowItem(
-            title: 'AQ',
-            data: '11:25',
+            title: 'Wind m/s',
+            data: '${data.wind.speed}',
           ),
         ],
       ),
     );
+  }
+
+  String _showCurrentTime() {
+    final dateFormat = DateFormat('HH:mm');
+    return dateFormat.format(DateTime.now());
   }
 }

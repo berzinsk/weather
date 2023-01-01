@@ -1,38 +1,29 @@
 import 'package:flutter/material.dart';
 import 'package:weather/features/weather/domain/weather.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
+import 'package:weather/features/weather/services/weather_service.dart';
 
-class WeatherDetails extends StatelessWidget {
-  final WeatherData weatherData = WeatherData(
-    id: 123,
-    name: 'Dreiliņi',
-    timezone: 7200,
-    coord: Coord(
-      lat: 56.9465,
-      lon: 24.2475,
-    ),
-    weather: Weather(
-      id: 803,
-      main: 'Clouds',
-      description: 'broken clouds',
-      icon: '04d',
-    ),
-    main: Main(
-      temp: 2.85,
-      feelsLike: -0.52,
-      tempMin: 2.14,
-      tempMax: 3.01,
-      humidity: 89,
-    ),
-    systemData: SystemData(
-      id: 2075320,
-      country: 'LV',
-      sunrise: 1672210876,
-      sunset: 1672235242,
-    ),
-  );
+class WeatherDetails extends StatefulWidget {
+  final WeatherService weatherService;
 
-  WeatherDetails({super.key});
+  const WeatherDetails({
+    super.key,
+    required this.weatherService,
+  });
+
+  @override
+  State<WeatherDetails> createState() => _WeatherDetailsState();
+}
+
+class _WeatherDetailsState extends State<WeatherDetails> {
+  late Future<WeatherData> data;
+
+  @override
+  void initState() {
+    super.initState();
+
+    data = widget.weatherService.fetchWeatherData();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +41,22 @@ class WeatherDetails extends StatelessWidget {
                 child: Text('Search placeholder'),
               ),
             ),
-            WeatherCard(weatherData: weatherData),
+            FutureBuilder(
+              future: data,
+              builder: (context, snapshot) {
+                if (snapshot.hasData) {
+                  return WeatherCard(weatherData: snapshot.data!);
+                }
+
+                if (snapshot.hasError) {
+                  return const Center(
+                    child: Text('Error'),
+                  );
+                }
+
+                return const CircularProgressIndicator();
+              },
+            ),
           ],
         ),
       ),

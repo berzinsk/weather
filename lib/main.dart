@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_details.dart';
+import 'package:weather/features/weather/services/weather_service.dart';
 import 'package:weather/resources/theme/theme_data.dart';
 
 void main() {
@@ -22,7 +23,7 @@ class MyApp extends StatelessWidget {
       home: Scaffold(
         backgroundColor: Colors.white,
         body: SafeArea(
-          child: WeatherDetails(),
+          child: WeatherDetails(weatherService: WeatherService()),
         ),
       ),
     );

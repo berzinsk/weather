@@ -6,6 +6,8 @@ class WeatherData {
   final Weather weather;
   final Main main;
   final SystemData systemData;
+  final Clouds clouds;
+  final Wind wind;
 
   WeatherData({
     required this.id,
@@ -15,6 +17,8 @@ class WeatherData {
     required this.weather,
     required this.main,
     required this.systemData,
+    required this.clouds,
+    required this.wind,
   });
 
   factory WeatherData.fromJson(Map<String, dynamic> data) {
@@ -23,8 +27,13 @@ class WeatherData {
     final timezone = data['timezone'] as int;
     final coordData = data['coord'] as Map<String, dynamic>;
     final coord = Coord.fromJson(coordData);
-    final weatherData = data['weather'] as Map<String, dynamic>;
-    final weather = Weather.fromJson(weatherData);
+    final weatherData = data['weather'] as List<dynamic>;
+    final cloudsData = data['clouds'] as Map<String, dynamic>;
+    final clouds = Clouds.fromJson(cloudsData);
+    final windData = data['wind'] as Map<String, dynamic>;
+    final wind = Wind.fromJson(windData);
+
+    final weather = Weather.fromJson(weatherData[0]);
     final mainData = data['main'] as Map<String, dynamic>;
     final main = Main.fromJson(mainData);
     final sysData = data['sys'] as Map<String, dynamic>;
@@ -38,6 +47,8 @@ class WeatherData {
       weather: weather,
       main: main,
       systemData: systemData,
+      clouds: clouds,
+      wind: wind,
     );
   }
 }
@@ -139,5 +150,36 @@ class SystemData {
       sunrise: sunrise,
       sunset: sunset,
     );
+  }
+}
+
+class Clouds {
+  final int all;
+
+  Clouds({
+    required this.all,
+  });
+
+  factory Clouds.fromJson(Map<String, dynamic> data) {
+    final all = data['all'] as int;
+
+    return Clouds(all: all);
+  }
+}
+
+class Wind {
+  final double speed;
+  final int deg;
+
+  Wind({
+    required this.speed,
+    required this.deg,
+  });
+
+  factory Wind.fromJson(Map<String, dynamic> data) {
+    final speed = data['speed'] as double;
+    final deg = data['deg'] as int;
+
+    return Wind(speed: speed, deg: deg);
   }
 }
