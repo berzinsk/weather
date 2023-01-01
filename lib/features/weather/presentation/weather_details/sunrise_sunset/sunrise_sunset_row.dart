@@ -73,16 +73,27 @@ class SunriseSunsetRow extends StatelessWidget {
     final sunsetDate =
         DateTime.fromMillisecondsSinceEpoch(systemData.sunset * 1000);
 
-    final minuteDifference = sunsetDate.difference(sunriseDate).inMinutes;
+    return _differenceBetweenDates(sunriseDate, sunsetDate);
+  }
+
+  String _calculateRemainingDaylight() {
+    final sunsetDate =
+        DateTime.fromMillisecondsSinceEpoch(systemData.sunset * 1000);
+    final currentData = DateTime.now();
+
+    return _differenceBetweenDates(currentData, sunsetDate);
+  }
+
+  String _differenceBetweenDates(DateTime startDate, DateTime endDate) {
+    final minuteDifference = endDate.difference(startDate).inMinutes;
 
     final hour = minuteDifference ~/ 60;
     final minute = minuteDifference % 60;
 
-    return '${hour.toString().padLeft(2, '0')}H ${minute.toString().padLeft(2, '0')}M';
-  }
+    if (hour <= 0 && minute <= 0) {
+      return '00H 00M';
+    }
 
-  String _calculateRemainingDaylight() {
-    //TODO: Calculate this once we have data from API;
-    return '03H 10M';
+    return '${hour.toString().padLeft(2, '0')}H ${minute.toString().padLeft(2, '0')}M';
   }
 }
