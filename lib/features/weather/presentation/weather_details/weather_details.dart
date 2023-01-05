@@ -1,36 +1,23 @@
 import 'package:flutter/material.dart';
-import 'package:weather/features/weather/domain/uv_data.dart';
-import 'package:weather/features/weather/domain/weather.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
 import 'package:weather/features/weather/services/weather_service.dart';
 
-class WeatherDetails extends StatefulWidget {
-  final WeatherService weatherService;
+enum WeatherSearchType {
+  current,
+  dreilini,
+}
 
-  const WeatherDetails({
+class WeatherDetails extends StatelessWidget {
+  final WeatherService weatherService;
+  final List<WeatherSearchType> weatherTypes = [
+    WeatherSearchType.current,
+    WeatherSearchType.dreilini,
+  ];
+
+  WeatherDetails({
     super.key,
     required this.weatherService,
   });
-
-  @override
-  State<WeatherDetails> createState() => _WeatherDetailsState();
-}
-
-class _WeatherDetailsState extends State<WeatherDetails> {
-  late Future<WeatherData> weatherData;
-  late Future<UVData> uvData;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _fetchWeatherData();
-  }
-
-  Future<void> _fetchWeatherData() async {
-    weatherData = widget.weatherService.fetchWeatherData();
-    uvData = widget.weatherService.fetchUvData();
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -48,27 +35,23 @@ class _WeatherDetailsState extends State<WeatherDetails> {
                 child: Text('Search placeholder'),
               ),
             ),
-            FutureBuilder(
-              future: Future.wait([weatherData, uvData]),
-              builder: (context, snapshot) {
-                if (snapshot.hasData) {
-                  final weatherData = snapshot.data![0] as WeatherData;
-                  final uvData = snapshot.data![1] as UVData;
-
-                  return WeatherCard(
-                    weatherData: weatherData,
-                    uvData: uvData,
+            SizedBox(
+              width: MediaQuery.of(context).size.width * 0.872,
+              height: 550,
+              child: ListView.builder(
+                scrollDirection: Axis.horizontal,
+                physics: const PageScrollPhysics(),
+                itemCount: weatherTypes.length,
+                itemBuilder: (context, index) {
+                  return SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.872,
+                    child: WeatherCard(
+                      searchType: weatherTypes[index],
+                      weatherService: weatherService,
+                    ),
                   );
-                }
-
-                if (snapshot.hasError) {
-                  return const Center(
-                    child: Text('Error'),
-                  );
-                }
-
-                return const CircularProgressIndicator();
-              },
+                },
+              ),
             ),
           ],
         ),
