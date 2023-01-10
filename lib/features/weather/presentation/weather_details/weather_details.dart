@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/features/weather/presentation/weather_details/search_bar/search_bar.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
 import 'package:weather/features/weather/services/weather_service.dart';
 
@@ -27,14 +28,7 @@ class WeatherDetails extends StatelessWidget {
         child: Column(
           children: [
             const SizedBox(height: 24),
-            Container(
-              width: MediaQuery.of(context).size.width,
-              height: 46,
-              color: Colors.grey,
-              child: const Center(
-                child: Text('Search placeholder'),
-              ),
-            ),
+            const SearchBar(),
             SizedBox(
               width: MediaQuery.of(context).size.width * 0.872,
               height: 550,
