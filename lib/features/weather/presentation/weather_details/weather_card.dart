@@ -58,58 +58,60 @@ class _WeatherCardState extends State<WeatherCard> {
           final weatherData = snapshot.data![0] as WeatherData;
           final uvData = snapshot.data![1] as UVData;
 
-          return Column(
-            children: [
-              const SizedBox(height: 40),
-              const Image(
-                image:
-                    AssetImage('assets/images/current_weather_placeholder.png'),
-              ),
-              Padding(
-                padding: const EdgeInsets.only(
-                  top: 32,
-                  bottom: 16,
+          return SingleChildScrollView(
+            child: Column(
+              children: [
+                const SizedBox(height: 40),
+                const Image(
+                  image: AssetImage(
+                      'assets/images/current_weather_placeholder.png'),
                 ),
-                child: Row(
+                Padding(
+                  padding: const EdgeInsets.only(
+                    top: 32,
+                    bottom: 16,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        weatherData.name,
+                        style: Theme.of(context).textTheme.titleMedium,
+                      ),
+                      const SizedBox(width: 12),
+                      const Image(
+                        image: AssetImage(
+                            'assets/images/current_location_icon.png'),
+                      ),
+                    ],
+                  ),
+                ),
+                Row(
                   mainAxisAlignment: MainAxisAlignment.center,
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      weatherData.name,
-                      style: Theme.of(context).textTheme.titleMedium,
+                      '${weatherData.main.temp.toInt()} ',
+                      style: Theme.of(context).textTheme.titleLarge,
                     ),
-                    const SizedBox(width: 12),
-                    const Image(
-                      image:
-                          AssetImage('assets/images/current_location_icon.png'),
+                    const Text(
+                      '\u00b0',
+                      style: TextStyle(
+                        fontSize: 30,
+                      ),
                     ),
                   ],
                 ),
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    '${weatherData.main.temp.toInt()} ',
-                    style: Theme.of(context).textTheme.titleLarge,
-                  ),
-                  const Text(
-                    '\u00b0',
-                    style: TextStyle(
-                      fontSize: 30,
-                    ),
-                  ),
-                ],
-              ),
-              CurrentTimeRow(
-                weatherData: weatherData,
-                uvData: uvData,
-              ),
-              const SizedBox(height: 12),
-              SunriseSunsetRow(
-                systemData: weatherData.systemData,
-              ),
-            ],
+                CurrentTimeRow(
+                  weatherData: weatherData,
+                  uvData: uvData,
+                ),
+                const SizedBox(height: 12),
+                SunriseSunsetRow(
+                  systemData: weatherData.systemData,
+                ),
+              ],
+            ),
           );
         }
 

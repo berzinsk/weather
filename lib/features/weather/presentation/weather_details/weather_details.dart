@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:weather/features/weather/presentation/weather_details/search_bar/search_bar.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
 import 'package:weather/features/weather/services/weather_service.dart';
+import 'package:weather/resources/constants/app_constants.dart';
 
 enum WeatherSearchType {
   current,
@@ -22,29 +23,37 @@ class WeatherDetails extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 24),
-      child: SingleChildScrollView(
-        child: Column(
+    return SizedBox(
+      width: MediaQuery.of(context).size.width,
+      height: MediaQuery.of(context).size.height,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 1.5),
+        child: Stack(
+          alignment: Alignment.topLeft,
           children: [
-            const SizedBox(height: 24),
-            const SearchBar(),
-            SizedBox(
-              width: MediaQuery.of(context).size.width * 0.872,
-              height: 550,
-              child: ListView.builder(
-                scrollDirection: Axis.horizontal,
-                physics: const PageScrollPhysics(),
-                itemCount: weatherTypes.length,
-                itemBuilder: (context, index) {
-                  return SizedBox(
-                    width: MediaQuery.of(context).size.width * 0.872,
-                    child: WeatherCard(
-                      searchType: weatherTypes[index],
-                      weatherService: weatherService,
-                    ),
-                  );
-                },
+            const Positioned(
+              top: defaultPadding * 1.5,
+              child: SearchBar(),
+            ),
+            Positioned(
+              top: defaultPadding * 5,
+              child: SizedBox(
+                width: MediaQuery.of(context).size.width * 0.872,
+                height: 650,
+                child: ListView.builder(
+                  scrollDirection: Axis.horizontal,
+                  physics: const PageScrollPhysics(),
+                  itemCount: weatherTypes.length,
+                  itemBuilder: (context, index) {
+                    return SizedBox(
+                      width: MediaQuery.of(context).size.width * 0.872,
+                      child: WeatherCard(
+                        searchType: weatherTypes[index],
+                        weatherService: weatherService,
+                      ),
+                    );
+                  },
+                ),
               ),
             ),
           ],

@@ -8,7 +8,7 @@ class SearchBar extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
-      width: MediaQuery.of(context).size.width,
+      width: MediaQuery.of(context).size.width - 48,
       height: 46,
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(16),
