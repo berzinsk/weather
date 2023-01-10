@@ -24,6 +24,9 @@ class _WeatherCardState extends State<WeatherCard> {
   late Future<WeatherData> weatherData;
   late Future<UVData> uvData;
 
+  final String latitude = '56.946528704775936';
+  final String longitude = '24.2475472319737';
+
   @override
   void initState() {
     super.initState();
@@ -33,11 +36,17 @@ class _WeatherCardState extends State<WeatherCard> {
 
   Future<void> _fetchWeatherData() async {
     if (widget.searchType == WeatherSearchType.current) {
-      weatherData = widget.weatherService.fetchWeatherDataForLocation();
+      weatherData = widget.weatherService.fetchWeatherDataForLocation(
+        latitude: latitude,
+        longitude: longitude,
+      );
     } else {
       weatherData = widget.weatherService.fetchWeatherDataFor(city: 'Milan');
     }
-    uvData = widget.weatherService.fetchUvData();
+    uvData = widget.weatherService.fetchUvDataForLocation(
+      latitude: latitude,
+      longitude: longitude,
+    );
   }
 
   @override

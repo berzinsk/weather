@@ -6,9 +6,12 @@ import 'package:weather/features/weather/domain/weather.dart';
 import 'package:http/http.dart' as http;
 
 class WeatherService {
-  Future<WeatherData> fetchWeatherDataForLocation() async {
+  Future<WeatherData> fetchWeatherDataForLocation({
+    required String latitude,
+    required String longitude,
+  }) async {
     final response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?lat=56.946528704775936&lon=24.2475472319737&appid=e8e5f6f91a238065d8ba0123f65e95d5&units=metric'));
+        'https://api.openweathermap.org/data/2.5/weather?lat=$latitude&lon=$longitude&appid=e8e5f6f91a238065d8ba0123f65e95d5&units=metric'));
 
     if (response.statusCode == 200) {
       return WeatherData.fromJson(jsonDecode(response.body));
@@ -17,9 +20,12 @@ class WeatherService {
     }
   }
 
-  Future<UVData> fetchUvData() async {
+  Future<UVData> fetchUvDataForLocation({
+    required String latitude,
+    required String longitude,
+  }) async {
     final response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/uvi?lat=56.946528704775936&lon=24.2475472319737&appid=e8e5f6f91a238065d8ba0123f65e95d5'));
+        'https://api.openweathermap.org/data/2.5/uvi?lat=$latitude&lon=$longitude&appid=e8e5f6f91a238065d8ba0123f65e95d5'));
 
     if (response.statusCode == 200) {
       return UVData.fromJson(jsonDecode(response.body));
@@ -30,7 +36,7 @@ class WeatherService {
 
   Future<WeatherData> fetchWeatherDataFor({required String city}) async {
     final response = await http.get(Uri.parse(
-        'https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=e8e5f6f91a238065d8ba0123f65e95d5&units=metric'));
+        'https://api.openweathermap.org/data/2.5/weather?q=$city&appid=e8e5f6f91a238065d8ba0123f65e95d5&units=metric'));
 
     if (response.statusCode == 200) {
       return WeatherData.fromJson(jsonDecode(response.body));
