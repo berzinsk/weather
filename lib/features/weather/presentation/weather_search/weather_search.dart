@@ -15,10 +15,16 @@ class WeatherSearch extends StatelessWidget {
       backgroundColor: Colors.white,
       body: SafeArea(
         child: Padding(
-          padding: const EdgeInsets.fromLTRB(pagePadding, 0, pagePadding, 0),
+          padding: const EdgeInsets.fromLTRB(
+              pagePadding, defaultPadding * 1.5, pagePadding, 0),
           child: Column(
             children: [
-              const SearchBar(autofocus: true),
+              SearchBar(
+                autofocus: true,
+                onClearTap: () {
+                  Navigator.of(context).pop();
+                },
+              ),
               const SizedBox(height: defaultPadding),
               SizedBox(
                 width: MediaQuery.of(context).size.width,

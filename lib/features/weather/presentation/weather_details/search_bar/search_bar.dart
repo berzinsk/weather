@@ -1,20 +1,43 @@
 import 'package:flutter/material.dart';
 import 'package:weather/resources/colors/colors.dart';
 
-class SearchBar extends StatelessWidget {
+class SearchBar extends StatefulWidget {
   final Function()? onSearchTap;
+  final Function()? onClearTap;
   final bool autofocus;
+  final bool enabled;
 
   const SearchBar({
-    Key? key,
+    super.key,
     this.onSearchTap,
+    this.onClearTap,
     this.autofocus = false,
-  }) : super(key: key);
+    this.enabled = true,
+  });
+
+  @override
+  State<SearchBar> createState() => _SearchBarState();
+}
+
+class _SearchBarState extends State<SearchBar> {
+  bool hasFocus = false;
+  var focusNode = FocusNode();
+
+  @override
+  void initState() {
+    focusNode.addListener(() {
+      setState(() {
+        hasFocus = focusNode.hasFocus;
+      });
+    });
+
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: const EdgeInsets.fromLTRB(20, 10, 20, 0),
+      padding: const EdgeInsets.symmetric(horizontal: 20),
       width: MediaQuery.of(context).size.width - 48,
       height: 46,
       decoration: BoxDecoration(
@@ -26,7 +49,10 @@ class SearchBar extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
-              onTap: onSearchTap,
+              focusNode: focusNode,
+              enabled: widget.enabled,
+              autofocus: widget.autofocus,
+              onTap: widget.onSearchTap,
               maxLines: 1,
               decoration: InputDecoration(
                 border: InputBorder.none,
@@ -43,7 +69,17 @@ class SearchBar extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 16),
-          Image(image: AssetImage('assets/images/icon_search.png'))
+          InkWell(
+            onTap: widget.onClearTap,
+            child: hasFocus
+                ? Icon(
+                    Icons.close,
+                    color: AppColors.labelGray,
+                  )
+                : const Image(
+                    image: AssetImage('assets/images/icon_search.png'),
+                  ),
+          ),
         ],
       ),
     );

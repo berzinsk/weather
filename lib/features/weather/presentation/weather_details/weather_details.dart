@@ -34,12 +34,25 @@ class WeatherDetails extends StatelessWidget {
           children: [
             Positioned(
               top: defaultPadding * 1.5,
-              child: SearchBar(
-                onSearchTap: () {
-                  Navigator.of(context).push(MaterialPageRoute(
-                    builder: (context) => WeatherSearch(),
-                  ));
+              child: InkWell(
+                onTap: () {
+                  Navigator.of(context).push(
+                    PageRouteBuilder(
+                      pageBuilder: (context, animation, secondaryAnimation) =>
+                          WeatherSearch(),
+                      transitionDuration: const Duration(milliseconds: 300),
+                      transitionsBuilder:
+                          (context, animation, secondaryAnimation, child) =>
+                              FadeTransition(
+                        opacity: animation,
+                        child: child,
+                      ),
+                    ),
+                  );
                 },
+                child: const SearchBar(
+                  enabled: false,
+                ),
               ),
             ),
             Positioned(
