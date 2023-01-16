@@ -13,6 +13,11 @@ TextTheme theme = TextTheme(
     fontWeight: FontWeight.w600,
     color: AppColors.primary,
   ),
+  titleSmall: GoogleFonts.poppins(
+    fontSize: 20,
+    fontWeight: FontWeight.w500,
+    color: AppColors.primary,
+  ),
   labelSmall: GoogleFonts.poppins(
     fontSize: 12,
     fontWeight: FontWeight.w500,
@@ -22,6 +27,11 @@ TextTheme theme = TextTheme(
     fontSize: 15,
     fontWeight: FontWeight.w500,
     color: AppColors.labelDetailsGray,
+  ),
+  bodyMedium: GoogleFonts.poppins(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+    color: AppColors.primary,
   ),
   bodySmall: GoogleFonts.poppins(
     fontSize: 10,

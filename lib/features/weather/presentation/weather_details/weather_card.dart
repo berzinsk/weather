@@ -91,7 +91,7 @@ class _WeatherCardState extends State<WeatherCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      '${weatherData.main.temp.toInt()} ',
+                      '${weatherData.main.temp.toInt()}',
                       style: Theme.of(context).textTheme.titleLarge,
                     ),
                     const Text(

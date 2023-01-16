@@ -2,7 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:weather/resources/colors/colors.dart';
 
 class SearchBar extends StatelessWidget {
-  const SearchBar({Key? key}) : super(key: key);
+  final Function()? onSearchTap;
+  final bool autofocus;
+
+  const SearchBar({
+    Key? key,
+    this.onSearchTap,
+    this.autofocus = false,
+  }) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,6 +26,7 @@ class SearchBar extends StatelessWidget {
         children: [
           Expanded(
             child: TextField(
+              onTap: onSearchTap,
               maxLines: 1,
               decoration: InputDecoration(
                 border: InputBorder.none,

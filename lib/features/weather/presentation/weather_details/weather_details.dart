@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:weather/features/weather/presentation/weather_details/search_bar/search_bar.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
+import 'package:weather/features/weather/presentation/weather_search/weather_search.dart';
 import 'package:weather/features/weather/services/weather_service.dart';
 import 'package:weather/resources/constants/app_constants.dart';
 
@@ -31,9 +32,15 @@ class WeatherDetails extends StatelessWidget {
         child: Stack(
           alignment: Alignment.topLeft,
           children: [
-            const Positioned(
+            Positioned(
               top: defaultPadding * 1.5,
-              child: SearchBar(),
+              child: SearchBar(
+                onSearchTap: () {
+                  Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) => WeatherSearch(),
+                  ));
+                },
+              ),
             ),
             Positioned(
               top: defaultPadding * 5,
