@@ -1,12 +1,36 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.example.weather">
-<uses-permission android:name="android.permission.INTERNET" />
+    <uses-permission android:name="android.permission.INTERNET" />
+    <supports-screens
+        android:smallScreens="true"
+        android:normalScreens="true"
+        android:largeScreens="false"
+        android:xlargeScreens="false"
+        android:resizeable="true"
+        android:anyDensity="true"/>
+    <compatible-screens>
+        <!-- all small size screens -->
+        <screen android:screenSize="small" android:screenDensity="ldpi"/>
+        <screen android:screenSize="small" android:screenDensity="mdpi"/>
+        <screen android:screenSize="small" android:screenDensity="hdpi"/>
+        <screen android:screenSize="small" android:screenDensity="xhdpi"/>
+        <screen android:screenSize="small" android:screenDensity="xxhdpi"/>
+        <screen android:screenSize="small" android:screenDensity="xxxhdpi"/>
+        <!-- all normal size screens -->
+        <screen android:screenSize="normal" android:screenDensity="ldpi"/>
+        <screen android:screenSize="normal" android:screenDensity="mdpi"/>
+        <screen android:screenSize="normal" android:screenDensity="hdpi"/>
+        <screen android:screenSize="normal" android:screenDensity="xhdpi"/>
+        <screen android:screenSize="normal" android:screenDensity="xxhdpi"/>
+        <screen android:screenSize="normal" android:screenDensity="xxxhdpi"/>
+    </compatible-screens>
    <application
         android:label="weather"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"
+            android:screenOrientation="portrait"
             android:exported="true"
             android:launchMode="singleTop"
             android:theme="@style/LaunchTheme"
