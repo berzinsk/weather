@@ -40,13 +40,15 @@ class _WeatherCardState extends State<WeatherCard> {
         latitude: latitude,
         longitude: longitude,
       );
+
+      uvData = widget.weatherService.fetchUvDataForLocation(
+        latitude: latitude,
+        longitude: longitude,
+      );
     } else {
       weatherData = widget.weatherService.fetchWeatherDataFor(city: 'Milan');
+      uvData = widget.weatherService.fetchUvDataFor(city: 'Milan');
     }
-    uvData = widget.weatherService.fetchUvDataForLocation(
-      latitude: latitude,
-      longitude: longitude,
-    );
   }
 
   @override

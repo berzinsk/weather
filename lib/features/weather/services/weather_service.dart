@@ -4,6 +4,7 @@ import 'package:weather/features/weather/domain/uv_data.dart';
 import 'package:weather/features/weather/domain/weather.dart';
 
 import 'package:http/http.dart' as http;
+import 'package:geocoding/geocoding.dart';
 
 class WeatherService {
   Future<WeatherData> fetchWeatherDataForLocation({
@@ -31,6 +32,20 @@ class WeatherService {
       return UVData.fromJson(jsonDecode(response.body));
     } else {
       throw Exception('Failed to load uv data');
+    }
+  }
+
+  Future<UVData> fetchUvDataFor({required String city}) async {
+    List<Location> locations = await locationFromAddress(city);
+
+    if (locations.isNotEmpty) {
+      final location = locations.first;
+      return await fetchUvDataForLocation(
+        latitude: '${location.latitude}',
+        longitude: '${location.longitude}',
+      );
+    } else {
+      throw Exception('Failed to get coordinates for the provided city');
     }
   }
 
