@@ -2,25 +2,40 @@ import 'package:flutter/material.dart';
 import 'package:weather/features/weather/presentation/weather_details/search_bar/search_bar.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
 import 'package:weather/features/weather/presentation/weather_search/weather_search.dart';
+import 'package:weather/features/weather/services/location_service.dart';
 import 'package:weather/features/weather/services/weather_service.dart';
 import 'package:weather/resources/constants/app_constants.dart';
 
 enum WeatherSearchType {
   current,
-  dreilini,
+  milan,
 }
 
-class WeatherDetails extends StatelessWidget {
+class WeatherDetails extends StatefulWidget {
   final WeatherService weatherService;
-  final List<WeatherSearchType> weatherTypes = [
-    WeatherSearchType.current,
-    WeatherSearchType.dreilini,
-  ];
+  final LocationService locationService;
 
-  WeatherDetails({
+  const WeatherDetails({
     super.key,
     required this.weatherService,
+    required this.locationService,
   });
+
+  @override
+  State<WeatherDetails> createState() => _WeatherDetailsState();
+}
+
+class _WeatherDetailsState extends State<WeatherDetails> {
+  final List<WeatherSearchType> weatherTypes = [
+    WeatherSearchType.current,
+    WeatherSearchType.milan,
+  ];
+
+  @override
+  void initState() {
+    widget.locationService.requestLocationAccess();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +84,7 @@ class WeatherDetails extends StatelessWidget {
                       width: MediaQuery.of(context).size.width * 0.872,
                       child: WeatherCard(
                         searchType: weatherTypes[index],
-                        weatherService: weatherService,
+                        weatherService: widget.weatherService,
                       ),
                     );
                   },
