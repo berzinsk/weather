@@ -8,12 +8,12 @@ import 'package:weather/features/weather/services/weather_service.dart';
 
 class WeatherCard extends StatefulWidget {
   final WeatherService weatherService;
-  final WeatherSearchType searchType;
+  final WeatherDataType data;
 
   const WeatherCard({
     super.key,
     required this.weatherService,
-    required this.searchType,
+    required this.data,
   });
 
   @override
@@ -35,7 +35,7 @@ class _WeatherCardState extends State<WeatherCard> {
   }
 
   Future<void> _fetchWeatherData() async {
-    if (widget.searchType == WeatherSearchType.current) {
+    if (widget.data.forCurrentLocation) {
       weatherData = widget.weatherService.fetchWeatherDataForLocation(
         latitude: latitude,
         longitude: longitude,
@@ -46,8 +46,9 @@ class _WeatherCardState extends State<WeatherCard> {
         longitude: longitude,
       );
     } else {
-      weatherData = widget.weatherService.fetchWeatherDataFor(city: 'Milan');
-      uvData = widget.weatherService.fetchUvDataFor(city: 'Milan');
+      final cityName = widget.data.cityName ?? '';
+      weatherData = widget.weatherService.fetchWeatherDataFor(city: cityName);
+      uvData = widget.weatherService.fetchUvDataFor(city: cityName);
     }
   }
 
@@ -81,10 +82,11 @@ class _WeatherCardState extends State<WeatherCard> {
                         style: Theme.of(context).textTheme.titleMedium,
                       ),
                       const SizedBox(width: 12),
-                      const Image(
-                        image: AssetImage(
-                            'assets/images/current_location_icon.png'),
-                      ),
+                      if (widget.data.forCurrentLocation)
+                        const Image(
+                          image: AssetImage(
+                              'assets/images/current_location_icon.png'),
+                        ),
                     ],
                   ),
                 ),

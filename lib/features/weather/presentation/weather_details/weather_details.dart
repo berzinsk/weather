@@ -3,22 +3,34 @@ import 'package:weather/features/weather/presentation/weather_details/search_bar
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
 import 'package:weather/features/weather/presentation/weather_search/weather_search.dart';
 import 'package:weather/features/weather/services/location_service.dart';
+import 'package:weather/features/weather/services/storage_service.dart';
 import 'package:weather/features/weather/services/weather_service.dart';
 import 'package:weather/resources/constants/app_constants.dart';
 
-enum WeatherSearchType {
-  current,
-  milan,
+class WeatherDataType {
+  final bool forCurrentLocation;
+  final double? latitude;
+  final double? longitude;
+  final String? cityName;
+
+  WeatherDataType({
+    this.forCurrentLocation = false,
+    this.latitude,
+    this.longitude,
+    this.cityName,
+  });
 }
 
 class WeatherDetails extends StatefulWidget {
   final WeatherService weatherService;
   final LocationService locationService;
+  final StorageService storageService;
 
   const WeatherDetails({
     super.key,
     required this.weatherService,
     required this.locationService,
+    required this.storageService,
   });
 
   @override
@@ -26,15 +38,29 @@ class WeatherDetails extends StatefulWidget {
 }
 
 class _WeatherDetailsState extends State<WeatherDetails> {
-  final List<WeatherSearchType> weatherTypes = [
-    WeatherSearchType.current,
-    WeatherSearchType.milan,
-  ];
+  List<WeatherDataType> data = [];
 
   @override
   void initState() {
     widget.locationService.requestLocationAccess();
+    loadAvailableCities();
     super.initState();
+  }
+
+  Future<void> loadAvailableCities() async {
+    final storedCities = await widget.storageService.getCities();
+    final cities = storedCities
+        .map(
+          (e) => WeatherDataType(
+            cityName: e,
+            forCurrentLocation: false,
+          ),
+        )
+        .toList();
+
+    setState(() {
+      data = cities;
+    });
   }
 
   @override
@@ -78,12 +104,12 @@ class _WeatherDetailsState extends State<WeatherDetails> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: const PageScrollPhysics(),
-                  itemCount: weatherTypes.length,
+                  itemCount: data.length,
                   itemBuilder: (context, index) {
                     return SizedBox(
                       width: MediaQuery.of(context).size.width * 0.872,
                       child: WeatherCard(
-                        searchType: weatherTypes[index],
+                        data: data[index],
                         weatherService: widget.weatherService,
                       ),
                     );
