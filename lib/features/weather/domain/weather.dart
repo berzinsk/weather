@@ -177,7 +177,7 @@ class Wind {
   });
 
   factory Wind.fromJson(Map<String, dynamic> data) {
-    final speed = data['speed'] as double;
+    final speed = double.tryParse(data['speed'].toString()) ?? 0;
     final deg = data['deg'] as int;
 
     return Wind(speed: speed, deg: deg);
