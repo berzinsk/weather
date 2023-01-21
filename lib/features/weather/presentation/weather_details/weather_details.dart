@@ -48,18 +48,31 @@ class _WeatherDetailsState extends State<WeatherDetails> {
   }
 
   Future<void> loadAvailableCities() async {
+    var weatherDataTypes = <WeatherDataType>[];
+
+    final shouldRenderLocation =
+        await widget.storageService.getLocationStatus();
+
+    if (shouldRenderLocation) {
+      final userLocation = await widget.locationService.getCurrentPosition();
+      weatherDataTypes.add(WeatherDataType(
+        forCurrentLocation: true,
+        latitude: userLocation.latitude,
+        longitude: userLocation.longitude,
+      ));
+    }
+
     final storedCities = await widget.storageService.getCities();
-    final cities = storedCities
-        .map(
-          (e) => WeatherDataType(
-            cityName: e,
-            forCurrentLocation: false,
-          ),
-        )
-        .toList();
+    final cities = storedCities.map(
+      (e) => WeatherDataType(
+        cityName: e,
+        forCurrentLocation: false,
+      ),
+    );
+    weatherDataTypes.addAll(cities);
 
     setState(() {
-      data = cities;
+      data = weatherDataTypes;
     });
   }
 
