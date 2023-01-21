@@ -63,12 +63,22 @@ class _WeatherDetailsState extends State<WeatherDetails> {
     }
 
     final storedCities = await widget.storageService.getCities();
-    final cities = storedCities.map(
+    final List<String> citiesToLoad;
+
+    if (storedCities.isNotEmpty) {
+      citiesToLoad = storedCities;
+    } else {
+      // TODO: Demo data to render cities. Will be removed later
+      citiesToLoad = ['Helsinki', 'London', 'Amsterdam'];
+    }
+
+    final cities = citiesToLoad.map(
       (e) => WeatherDataType(
         cityName: e,
         forCurrentLocation: false,
       ),
     );
+
     weatherDataTypes.addAll(cities);
 
     setState(() {
