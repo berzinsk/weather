@@ -86,8 +86,8 @@ class Coord {
   });
 
   factory Coord.fromJson(Map<String, dynamic> data) {
-    final lat = data['lat'];
-    final lon = data['lon'];
+    final lat = double.tryParse(data['lat'].toString()) ?? 0;
+    final lon = double.tryParse(data['lon'].toString()) ?? 0;
 
     return Coord(lat: lat, lon: lon);
   }
@@ -109,10 +109,10 @@ class Main {
   });
 
   factory Main.fromJson(Map<String, dynamic> data) {
-    final temp = data['temp'] as double;
-    final feelsLike = data['feels_like'] as double;
-    final tempMin = data['temp_min'] as double;
-    final tempMax = data['temp_max'] as double;
+    final temp = double.tryParse(data['temp'].toString()) ?? 0;
+    final feelsLike = double.tryParse(data['feels_like'].toString()) ?? 0;
+    final tempMin = double.tryParse(data['temp_min'].toString()) ?? 0;
+    final tempMax = double.tryParse(data['temp_max'].toString()) ?? 0;
     final humidity = data['humidity'] as int;
 
     return Main(
