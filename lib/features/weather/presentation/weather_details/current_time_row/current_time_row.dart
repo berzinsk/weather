@@ -44,6 +44,8 @@ class CurrentTimeRow extends StatelessWidget {
 
   String _showCurrentTime() {
     final dateFormat = DateFormat('HH:mm');
-    return dateFormat.format(DateTime.now());
+    final date =
+        DateTime.now().toUtc().add(Duration(seconds: weatherData.timezone));
+    return dateFormat.format(date);
   }
 }
