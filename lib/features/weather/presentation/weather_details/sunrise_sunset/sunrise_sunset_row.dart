@@ -5,11 +5,11 @@ import 'package:weather/features/weather/presentation/weather_details/sunrise_su
 import 'package:weather/resources/colors/colors.dart';
 
 class SunriseSunsetRow extends StatelessWidget {
-  final SystemData systemData;
+  final WeatherData weatherData;
 
   const SunriseSunsetRow({
     super.key,
-    required this.systemData,
+    required this.weatherData,
   });
 
   @override
@@ -26,10 +26,14 @@ class SunriseSunsetRow extends StatelessWidget {
             ),
           ),
           LayoutBuilder(builder: (builderContext, constraints) {
+            final sunriseInLocalTime =
+                weatherData.systemData.sunrise + weatherData.timezone;
+            final sunsetInLocalTime =
+                weatherData.systemData.sunset + weatherData.timezone;
             final sunriseDate =
-                DateTime.fromMillisecondsSinceEpoch(systemData.sunrise * 1000);
+                DateTime.fromMillisecondsSinceEpoch(sunriseInLocalTime * 1000);
             final sunsetDate =
-                DateTime.fromMillisecondsSinceEpoch(systemData.sunset * 1000);
+                DateTime.fromMillisecondsSinceEpoch(sunsetInLocalTime * 1000);
 
             final sunriseInMinutes =
                 (sunriseDate.hour * 60) + sunriseDate.minute;
@@ -68,17 +72,17 @@ class SunriseSunsetRow extends StatelessWidget {
   }
 
   String _calculateDayLength() {
-    final sunriseDate =
-        DateTime.fromMillisecondsSinceEpoch(systemData.sunrise * 1000);
-    final sunsetDate =
-        DateTime.fromMillisecondsSinceEpoch(systemData.sunset * 1000);
+    final sunriseDate = DateTime.fromMillisecondsSinceEpoch(
+        weatherData.systemData.sunrise * 1000);
+    final sunsetDate = DateTime.fromMillisecondsSinceEpoch(
+        weatherData.systemData.sunset * 1000);
 
     return _differenceBetweenDates(sunriseDate, sunsetDate);
   }
 
   String _calculateRemainingDaylight() {
-    final sunsetDate =
-        DateTime.fromMillisecondsSinceEpoch(systemData.sunset * 1000);
+    final sunsetDate = DateTime.fromMillisecondsSinceEpoch(
+        weatherData.systemData.sunset * 1000);
     final currentData = DateTime.now();
 
     return _differenceBetweenDates(currentData, sunsetDate);

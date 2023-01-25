@@ -43,7 +43,7 @@ class WeatherController {
       citiesToLoad = storedCities;
     } else {
       // TODO: Check with New York because there is some error in UI with that
-      citiesToLoad = ['Milan', 'Riga'];
+      citiesToLoad = ['New York', 'Riga', 'Sydney'];
     }
 
     final cities = citiesToLoad.map(

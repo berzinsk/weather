@@ -66,7 +66,7 @@ class WeatherCard extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           SunriseSunsetRow(
-            systemData: weatherData.systemData,
+            weatherData: weatherData,
           ),
         ],
       ),
