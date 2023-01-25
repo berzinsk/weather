@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather/features/weather/controllers/weather_controller.dart';
+import 'package:weather/features/weather/domain/app_weather_data.dart';
 import 'package:weather/features/weather/presentation/weather_details/search_bar/search_bar.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_card.dart';
 import 'package:weather/features/weather/presentation/weather_search/weather_search.dart';
@@ -25,12 +27,14 @@ class WeatherDetails extends StatefulWidget {
   final WeatherService weatherService;
   final LocationService locationService;
   final StorageService storageService;
+  final WeatherController weatherContrller;
 
   const WeatherDetails({
     super.key,
     required this.weatherService,
     required this.locationService,
     required this.storageService,
+    required this.weatherContrller,
   });
 
   @override
@@ -39,51 +43,26 @@ class WeatherDetails extends StatefulWidget {
 
 class _WeatherDetailsState extends State<WeatherDetails> {
   List<WeatherDataType> data = [];
+  List<AppWeatherData> weatherData = [];
 
   @override
   void initState() {
-    widget.locationService.requestLocationAccess();
-    loadAvailableCities();
-    super.initState();
-  }
+    widget.weatherContrller.streamController.stream.listen((event) {
+      var currentData = weatherData;
+      if (event.isForLocation) {
+        currentData.insert(0, event);
+      } else {
+        currentData.add(event);
+      }
 
-  Future<void> loadAvailableCities() async {
-    var weatherDataTypes = <WeatherDataType>[];
-
-    final shouldRenderLocation =
-        await widget.storageService.getLocationStatus();
-
-    if (shouldRenderLocation) {
-      final userLocation = await widget.locationService.getCurrentPosition();
-      weatherDataTypes.add(WeatherDataType(
-        forCurrentLocation: true,
-        latitude: userLocation.latitude,
-        longitude: userLocation.longitude,
-      ));
-    }
-
-    final storedCities = await widget.storageService.getCities();
-    final List<String> citiesToLoad;
-
-    if (storedCities.isNotEmpty) {
-      citiesToLoad = storedCities;
-    } else {
-      // TODO: Demo data to render cities. Will be removed later
-      citiesToLoad = ['Helsinki', 'London', 'Amsterdam'];
-    }
-
-    final cities = citiesToLoad.map(
-      (e) => WeatherDataType(
-        cityName: e,
-        forCurrentLocation: false,
-      ),
-    );
-
-    weatherDataTypes.addAll(cities);
-
-    setState(() {
-      data = weatherDataTypes;
+      setState(() {
+        weatherData = currentData;
+      });
     });
+
+    widget.weatherContrller.fetchData();
+
+    super.initState();
   }
 
   @override
@@ -127,13 +106,14 @@ class _WeatherDetailsState extends State<WeatherDetails> {
                 child: ListView.builder(
                   scrollDirection: Axis.horizontal,
                   physics: const PageScrollPhysics(),
-                  itemCount: data.length,
+                  itemCount: weatherData.length,
                   itemBuilder: (context, index) {
+                    final item = weatherData[index];
                     return SizedBox(
+                      key: Key(item.weatherData.name),
                       width: MediaQuery.of(context).size.width * 0.872,
                       child: WeatherCard(
-                        data: data[index],
-                        weatherService: widget.weatherService,
+                        data: item,
                       ),
                     );
                   },

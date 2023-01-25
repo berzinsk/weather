@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:weather/features/weather/controllers/weather_controller.dart';
 import 'package:weather/features/weather/presentation/weather_details/weather_details.dart';
 import 'package:weather/features/weather/services/location_service.dart';
 import 'package:weather/features/weather/services/storage_service.dart';
@@ -29,6 +30,11 @@ class MyApp extends StatelessWidget {
             weatherService: WeatherService(),
             locationService: LocationService(),
             storageService: StorageService(),
+            weatherContrller: WeatherController(
+              weatherService: WeatherService(),
+              storageService: StorageService(),
+              locationService: LocationService(),
+            ),
           ),
         ),
       ),
