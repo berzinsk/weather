@@ -27,11 +27,16 @@ class WeatherController {
 
     if (shouldRenderLocation) {
       final userLocation = await locationService.getCurrentPosition();
-      weatherDataTypes.add(WeatherDataType(
-        forCurrentLocation: true,
-        latitude: userLocation.latitude,
-        longitude: userLocation.longitude,
-      ));
+
+      if (userLocation != null) {
+        weatherDataTypes.add(WeatherDataType(
+          forCurrentLocation: true,
+          latitude: userLocation.latitude,
+          longitude: userLocation.longitude,
+        ));
+      } else {
+        storageService.setLocationStatus(false);
+      }
     } else {
       _requestUserPermission();
     }
@@ -105,6 +110,10 @@ class WeatherController {
     await storageService.setLocationStatus(true);
 
     final userLocation = await locationService.getCurrentPosition();
+
+    if (userLocation == null) {
+      return;
+    }
 
     final latitude = userLocation.latitude.toString();
     final longitude = userLocation.longitude.toString();

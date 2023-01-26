@@ -1,8 +1,15 @@
 import 'package:geolocator/geolocator.dart';
 
 class LocationService {
-  Future<Position> getCurrentPosition() async {
+  Future<Position?> getCurrentPosition() async {
     try {
+      final permission = await Geolocator.checkPermission();
+
+      if (permission == LocationPermission.denied ||
+          permission == LocationPermission.deniedForever) {
+        return null;
+      }
+
       final position = await Geolocator.getCurrentPosition(
           desiredAccuracy: LocationAccuracy.high);
       return position;
