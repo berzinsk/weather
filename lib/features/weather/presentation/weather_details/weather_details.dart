@@ -7,6 +7,7 @@ import 'package:weather/features/weather/presentation/weather_search/weather_sea
 import 'package:weather/features/weather/services/location_service.dart';
 import 'package:weather/features/weather/services/storage_service.dart';
 import 'package:weather/features/weather/services/weather_service.dart';
+import 'package:weather/resources/colors/colors.dart';
 import 'package:weather/resources/constants/app_constants.dart';
 
 class WeatherDataType {
@@ -45,6 +46,9 @@ class _WeatherDetailsState extends State<WeatherDetails> {
   List<WeatherDataType> data = [];
   List<AppWeatherData> weatherData = [];
 
+  final PageController _pageController = PageController(initialPage: 0);
+  int _currentPage = 0;
+
   @override
   void initState() {
     widget.weatherContrller.streamController.stream.listen((event) {
@@ -66,6 +70,14 @@ class _WeatherDetailsState extends State<WeatherDetails> {
   }
 
   @override
+  void dispose() {
+    widget.weatherContrller.streamController.close();
+    _pageController.dispose();
+
+    super.dispose();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: MediaQuery.of(context).size.width,
@@ -73,7 +85,7 @@ class _WeatherDetailsState extends State<WeatherDetails> {
       child: Padding(
         padding: const EdgeInsets.symmetric(horizontal: defaultPadding * 1.5),
         child: Stack(
-          alignment: Alignment.topLeft,
+          alignment: Alignment.center,
           children: [
             Positioned(
               top: defaultPadding * 1.5,
@@ -99,13 +111,51 @@ class _WeatherDetailsState extends State<WeatherDetails> {
               ),
             ),
             Positioned(
-              top: defaultPadding * 5,
+              top: defaultPadding * 6,
+              child: Container(
+                decoration: BoxDecoration(
+                  borderRadius: BorderRadius.circular(5),
+                  color: AppColors.primaryBackground,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: List<Widget>.generate(
+                    weatherData.length,
+                    (index) => Padding(
+                      padding: const EdgeInsets.all(8),
+                      child: InkWell(
+                        onTap: () {
+                          _pageController.animateToPage(
+                            index,
+                            duration: const Duration(milliseconds: 300),
+                            curve: Curves.easeInOut,
+                          );
+                        },
+                        child: CircleAvatar(
+                          radius: 4,
+                          backgroundColor: _currentPage == index
+                              ? AppColors.nightBlue
+                              : AppColors.labelGray,
+                        ),
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+            ),
+            Positioned(
+              top: defaultPadding * 7,
               child: SizedBox(
                 width: MediaQuery.of(context).size.width * 0.872,
                 height: 650,
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal,
-                  physics: const PageScrollPhysics(),
+                child: PageView.builder(
+                  onPageChanged: (value) {
+                    setState(() {
+                      _currentPage = value;
+                    });
+                  },
+                  controller: _pageController,
+                  pageSnapping: true,
                   itemCount: weatherData.length,
                   itemBuilder: (context, index) {
                     final item = weatherData[index];
@@ -118,6 +168,21 @@ class _WeatherDetailsState extends State<WeatherDetails> {
                     );
                   },
                 ),
+                // child: ListView.builder(
+                //   scrollDirection: Axis.horizontal,
+                //   physics: const PageScrollPhysics(),
+                //   itemCount: weatherData.length,
+                //   itemBuilder: (context, index) {
+                //     final item = weatherData[index];
+                //     return SizedBox(
+                //       key: Key(item.weatherData.name),
+                //       width: MediaQuery.of(context).size.width * 0.872,
+                //       child: WeatherCard(
+                //         data: item,
+                //       ),
+                //     );
+                //   },
+                // ),
               ),
             ),
           ],
