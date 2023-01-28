@@ -43,20 +43,36 @@ class WeatherDetails extends StatefulWidget {
 }
 
 class _WeatherDetailsState extends State<WeatherDetails> {
-  List<WeatherDataType> data = [];
   List<AppWeatherData> weatherData = [];
+  List<String> placeholderCityNames = [];
 
   final PageController _pageController = PageController(initialPage: 0);
   int _currentPage = 0;
 
   @override
   void initState() {
+    widget.weatherContrller.loadData().then((cities) {
+      setState(() {
+        weatherData = cities;
+      });
+    });
+
     widget.weatherContrller.streamController.stream.listen((event) {
       var currentData = weatherData;
+
       if (event.isForLocation) {
+        event.locationName = event.weatherData?.name ?? '';
         currentData.insert(0, event);
       } else {
-        currentData.add(event);
+        var currentItemIndex = currentData
+            .indexWhere((e) => e.locationName == event.weatherData?.name);
+
+        var currentItem = currentData[currentItemIndex];
+        currentItem.isForLocation = event.isForLocation;
+        currentItem.uvData = event.uvData;
+        currentItem.weatherData = event.weatherData;
+
+        currentData[currentItemIndex] = currentItem;
       }
 
       setState(() {
@@ -160,7 +176,7 @@ class _WeatherDetailsState extends State<WeatherDetails> {
                   itemBuilder: (context, index) {
                     final item = weatherData[index];
                     return SizedBox(
-                      key: Key(item.weatherData.name),
+                      key: Key(item.weatherData?.name ?? item.locationName),
                       width: MediaQuery.of(context).size.width * 0.872,
                       child: WeatherCard(
                         data: item,
@@ -168,21 +184,6 @@ class _WeatherDetailsState extends State<WeatherDetails> {
                     );
                   },
                 ),
-                // child: ListView.builder(
-                //   scrollDirection: Axis.horizontal,
-                //   physics: const PageScrollPhysics(),
-                //   itemCount: weatherData.length,
-                //   itemBuilder: (context, index) {
-                //     final item = weatherData[index];
-                //     return SizedBox(
-                //       key: Key(item.weatherData.name),
-                //       width: MediaQuery.of(context).size.width * 0.872,
-                //       child: WeatherCard(
-                //         data: item,
-                //       ),
-                //     );
-                //   },
-                // ),
               ),
             ),
           ],

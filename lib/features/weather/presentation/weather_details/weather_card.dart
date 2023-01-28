@@ -4,17 +4,19 @@ import 'package:weather/features/weather/presentation/weather_details/current_ti
 import 'package:weather/features/weather/presentation/weather_details/sunrise_sunset/sunrise_sunset_row.dart';
 
 class WeatherCard extends StatelessWidget {
-  final AppWeatherData data;
+  final AppWeatherData? data;
+  final String? placeholderCityName;
 
   const WeatherCard({
     super.key,
-    required this.data,
+    this.data,
+    this.placeholderCityName,
   });
 
   @override
   Widget build(BuildContext context) {
-    final weatherData = data.weatherData;
-    final uvData = data.uvData;
+    final weatherData = data?.weatherData;
+    final uvData = data?.uvData;
 
     return SingleChildScrollView(
       child: Column(
@@ -32,11 +34,11 @@ class WeatherCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  weatherData.name,
+                  weatherData?.name ?? '',
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
                 const SizedBox(width: 12),
-                if (data.isForLocation)
+                if (data?.isForLocation ?? false)
                   const Image(
                     image:
                         AssetImage('assets/images/current_location_icon.png'),
@@ -49,7 +51,7 @@ class WeatherCard extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                '${weatherData.main.temp.toInt()}',
+                '${weatherData?.main.temp.toInt() ?? '-'}',
                 style: Theme.of(context).textTheme.titleLarge,
               ),
               const Text(
@@ -60,14 +62,16 @@ class WeatherCard extends StatelessWidget {
               ),
             ],
           ),
-          CurrentTimeRow(
-            weatherData: weatherData,
-            uvData: uvData,
-          ),
+          if (weatherData != null && uvData != null)
+            CurrentTimeRow(
+              weatherData: weatherData,
+              uvData: uvData,
+            ),
           const SizedBox(height: 12),
-          SunriseSunsetRow(
-            weatherData: weatherData,
-          ),
+          if (weatherData != null && uvData != null)
+            SunriseSunsetRow(
+              weatherData: weatherData,
+            ),
         ],
       ),
     );

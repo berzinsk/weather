@@ -21,6 +21,29 @@ class WeatherController {
     required this.weatherService,
   });
 
+  Future<List<AppWeatherData>> loadData() async {
+    final storedCities = await storageService.getCities();
+    final List<String> citiesToLoad;
+
+    if (storedCities.isNotEmpty) {
+      citiesToLoad = storedCities;
+    } else {
+      citiesToLoad = ['New York', 'Rīga', 'Sydney'];
+    }
+
+    final placeholderCities = citiesToLoad
+        .map(
+          (e) => AppWeatherData(
+            weatherData: null,
+            uvData: null,
+            locationName: e,
+          ),
+        )
+        .toList();
+
+    return placeholderCities;
+  }
+
   Future<void> fetchData() async {
     var weatherDataTypes = <WeatherDataType>[];
     final shouldRenderLocation = await storageService.getLocationStatus();
@@ -47,8 +70,7 @@ class WeatherController {
     if (storedCities.isNotEmpty) {
       citiesToLoad = storedCities;
     } else {
-      // TODO: Check with New York because there is some error in UI with that
-      citiesToLoad = ['New York', 'Riga', 'Sydney'];
+      citiesToLoad = ['New York', 'Rīga', 'Sydney'];
     }
 
     final cities = citiesToLoad.map(
